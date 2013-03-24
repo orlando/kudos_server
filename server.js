@@ -12,6 +12,7 @@ var allowCrossDomain = function (req, res, next) {
 
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(allowCrossDomain);
 app.use(app.router);
 
 app.configure('development', function(){
