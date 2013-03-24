@@ -5,10 +5,10 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-  mongoose.connect('mongodb://localhost/kudos');
-});
+//app.configure('development', function(){
+  //app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  //mongoose.connect('mongodb://localhost/kudos');
+//});
 
 app.configure('production', function(){
   app.use(express.errorHandler());
@@ -49,6 +49,6 @@ app.get('/kudos', function (req, res) {
     });
 });
 
-app.listen(3000, function(){
+app.listen(process.env.VCAP_APP_PORT || 3000, function(){
   console.log("Express server listening on port %d", this.address().port);
 });
