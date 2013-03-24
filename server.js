@@ -5,10 +5,10 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
 
-//app.configure('development', function(){
-  //app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-  //mongoose.connect('mongodb://localhost/kudos');
-//});
+app.configure('development', function(){
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+  mongoose.connect('mongodb://localhost/kudos');
+});
 
 app.configure('production', function(){
   app.use(express.errorHandler());
