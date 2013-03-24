@@ -12,7 +12,7 @@ app.configure('development', function(){
 
 app.configure('production', function(){
   app.use(express.errorHandler());
-  mongoose.connect('mongodb://localhost/kudos');
+  mongoose.connect(process.env.MONGOHQ_URL);
 });
 
 var Kudo = require('./app/models/Kudo.js');
