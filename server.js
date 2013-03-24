@@ -44,7 +44,8 @@ app.get('/kudos', function (req, res) {
             res.write(JSON.stringify(kudos));
             res.send();
         } else {
-            res.send("error");
+            res.write("error");
+            res.send();
         }
     });
 });
