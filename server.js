@@ -49,17 +49,27 @@ app.post('/kudos', function (req, res) {
 
 app.get('/kudos', function (req, res) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    var kudos = Kudo.find({}, function (err, kudos) {
-        if (!err){
-            res.write(JSON.stringify(kudos));
+    var command = {
+        'group' : {
+            'ns' : 'kudos',
+            'initial' : {'kudoCount': 0},
+            '$reduce' : 'function(doc, out){ out.kudoCount++ }',
+            'key' : {'article': 1, 'title': 1, 'url': 1}
+        }
+    };
+    mongoose.connection.db.executeDbCommand(command, function (err, dbres) {
+        var ret = dbres.documents[0].retval;
+        if (!err) {
+            res.write(JSON.stringify(ret));
             res.send();
         } else {
             res.write("error");
             res.send();
         }
+        
     });
 });
 
 app.listen(process.env.VCAP_APP_PORT || 3000, function(){
-  console.log("Express server listening on port %d", this.address().port);
+    console.log("Express server listening on port %d", this.address().port);
 });
