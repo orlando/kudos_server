@@ -6,6 +6,7 @@ This server will store the kudos you get using the [svbtle-jekyll](https://githu
 
 ```
 $ heroku create
+$ heroku addons:add mongolab
 $ git push heroku master
 $ heroku open
 ```

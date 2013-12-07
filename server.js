@@ -15,14 +15,15 @@ app.use(express.methodOverride());
 app.use(allowCrossDomain);
 app.use(app.router);
 
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-  mongoose.connect('mongodb://localhost/kudos');
+app.configure('development', function () {
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    mongoose.connect('mongodb://localhost/kudos');
 });
 
-app.configure('production', function(){
-  app.use(express.errorHandler({dumpExceptions: true}));
-  mongoose.connect(process.env.MONGOHQ_URL);
+app.configure('production', function () {
+    var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL;
+    app.use(express.errorHandler({dumpExceptions: true}));
+    mongoose.connect(mongoUri);
 });
 
 var Kudo = require('./app/models/Kudo.js');
@@ -66,10 +67,11 @@ app.get('/kudos', function (req, res) {
             res.write("error");
             res.send();
         }
-        
+
     });
 });
 
-app.listen(process.env.VCAP_APP_PORT || 3000, function(){
-    console.log("Express server listening on port %d", this.address().port);
+var port = process.env.PORT || 5000;
+app.listen(port, function () {
+    console.log("Listening on port ", port);
 });
