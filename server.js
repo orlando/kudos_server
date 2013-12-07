@@ -15,16 +15,9 @@ app.use(express.methodOverride());
 app.use(allowCrossDomain);
 app.use(app.router);
 
-app.configure('development', function () {
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-    mongoose.connect('mongodb://localhost/kudos');
-});
-
-app.configure('production', function () {
-    var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL;
-    app.use(express.errorHandler({dumpExceptions: true}));
-    mongoose.connect(mongoUri);
-});
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/kudos';
+app.use(express.errorHandler({dumpExceptions: true}));
+mongoose.connect(mongoUri);
 
 var Kudo = require('./app/models/Kudo.js');
 
