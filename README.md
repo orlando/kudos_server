@@ -11,7 +11,7 @@ $ git push heroku master
 $ heroku open
 ```
 
-then just copy the heroku url using the `/kudos` path (ex. http://fierce-escarpment-2262.herokuapp.com/kudos) to your `svbtle.yml` in your [svbtle-jekyll](https://github.com/orlando/svbtle-jekyll) blog and you are ready to go.
+then just copy the heroku url using the `/kudos` path (ex. http://kudos-server-example.herokuapp.com/kudos) to your `svbtle.yml` in your [svbtle-jekyll](https://github.com/orlando/svbtle-jekyll) blog and you are ready to go.
 
 ## Contributing
 
