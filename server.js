@@ -41,6 +41,12 @@ app.post('/kudos', function (req, res) {
     });
 });
 
+app.get('/', function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.write('{"status": "up and running"}');
+    res.send();
+});
+
 app.get('/kudos', function (req, res) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     var command = {
